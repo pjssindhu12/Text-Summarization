@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9ecf6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            font-size: 1em;
+            min-height: 150px;
+            resize: vertical;
+        }
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .options label {
+            font-weight: 500;
+            color: #555;
+        }
+        .options input[type="number"] {
+            width: 70px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            text-align: center;
+        }
+        button {
+            background-color: #a634db;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #9207bc;
+        }
+        .summary-section, .original-text-section {
+            margin-top: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        .content-box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            white-space: pre-wrap; /* Preserves formatting and wraps text */
+            word-wrap: break-word;
+            font-size: 1em;
+            line-height: 1.6;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .editable-summary {
+            min-height: 100px; /* Minimum height for editing */
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9em;
+            width: 100%;
+            background-color: #e9ecef;
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Summarization Tool</h1>
+        <h2>Enter the text to summarize</h2>
+        <form method="POST" action="/">
+            <textarea name="text_input" placeholder="Paste your text here to summarize...">{{ original_text }}</textarea>
+            
+            <div class="options">
+                <label for="num_sentences">Number of sentences in summary:</label>
+                <input type="number" id="num_sentences" name="num_sentences" value="{{ num_sentences }}" min="1" max="10">
+            </div>
+            
+            <button type="submit">Summarize</button>
+        </form>
+
+        <!-- {% if original_text %}
+        <div class="original-text-section">
+            <h2>Original Text</h2>
+            <div class="content-box">{{ original_text }}</div>
+        </div>
+        {% endif %} -->
+
+        {% if summary %}
+        <div class="summary-section">
+            <h2>Summary</h2><small>You can edit the summary below.</small>
+            <textarea id="summary_output" name="summary_output" class="content-box editable-summary" rows="5">{{ summary }}</textarea>
+            
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        Text Summarization Tool by Sindhu.
+    </footer>
+
+</body>
+</html>
